@@ -1,10 +1,10 @@
 {
-    "dart.flutterSdkPath": "/home/pc176/darshil_projects/ZetteliApp_Flutter_17_july_2023/ZetteliApp_Flutter/.fvm/flutter_sdk",
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
     "search.exclude": {
         "**/.fvm": true
     },
     "editor.codeActionsOnSave": {
-        "source.fixAll": "explicit"
+        "source.fixAll": true
     },
     // Remove from file watching
     "files.watcherExclude": {

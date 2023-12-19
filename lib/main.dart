@@ -4,6 +4,7 @@ import 'package:customer_app/app/routes/pages.dart';
 import 'package:customer_app/app/routes/route_const.dart';
 import 'package:customer_app/app/services/snackbar_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -19,6 +20,8 @@ void main() async {
     AppBaseComponent.instance.startLoading();
   };
   await GetStorage.init();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 

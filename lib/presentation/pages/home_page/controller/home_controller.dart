@@ -11,11 +11,10 @@ class HomeController extends GetxController {
   final PagingController<int, Detail> pagingController =
       PagingController(firstPageKey: 2);
   final ApiClient _apiClient = Get.find();
-  final int _pageSize = 5;
+  final int _pageSize = 10;
 
   @override
   void onReady() {
-    Logger.prints("msg");
     loadCustomerList(1);
     pagingController.addPageRequestListener((pageKey) {
       loadCustomerList(pageKey);

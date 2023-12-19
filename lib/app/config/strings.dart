@@ -8,4 +8,8 @@ class Strings {
   static const strPleaseEnterProperCompanyId = "Please enter proper Company Id";
   static const strHome = "Home";
   static const strSomethingWentWrong = "Something went wrong";
+  static const strTypeField = "Type :";
+  static const strCreatedAtField = "Created at :";
+  static const strEdit = "Edit";
+  static const strDelete = "Delete";
 }
