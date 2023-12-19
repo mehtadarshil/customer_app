@@ -35,8 +35,15 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  get: ^4.6.1
+  loading_animation_widget: ^1.2.0+4
+  connectivity_plus: ^5.0.2
+  infinite_scroll_pagination: ^4.0.0
+  get_storage: ^2.1.1
 
 dev_dependencies:
+  build_runner:
+  flutter_gen_runner:
   flutter_test:
     sdk: flutter
 
@@ -46,6 +53,12 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+flutter_gen:
+  output: lib/gen/
+  line_length: 80
+  # Optional
+  integrations:
+    flutter_svg: true
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -74,6 +87,34 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Inter-Black
+      fonts:
+        - asset: assets/fonts/Inter-Black.ttf
+    - family: Inter-Bold
+      fonts:
+        - asset: assets/fonts/Inter-Bold.ttf
+    - family: Inter-ExtraBold
+      fonts:
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+    - family: Inter-ExtraLight
+      fonts:
+        - asset: assets/fonts/Inter-ExtraLight.ttf
+    - family: Inter-Light
+      fonts:
+        - asset: assets/fonts/Inter-Light.ttf
+    - family: Inter-Medium
+      fonts:
+        - asset: assets/fonts/Inter-Medium.ttf
+    - family: Inter-Regular
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+    - family: Inter-SemiBold
+      fonts:
+        - asset: assets/fonts/Inter-SemiBold.ttf
+    - family: Inter-Thin
+      fonts:
+        - asset: assets/fonts/Inter-Thin.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
