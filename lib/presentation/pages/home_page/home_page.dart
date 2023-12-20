@@ -21,13 +21,13 @@ class HomePage extends GetView<HomeController> {
         builderDelegate: PagedChildBuilderDelegate<Detail>(
           itemBuilder: (context, item, index) => CustomerCard(
             item: item,
-          ).paddingOnly(bottom: 10),
+          ).paddingOnly(bottom: 12),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryDarkColor,
         onPressed: () {},
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }

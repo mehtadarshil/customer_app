@@ -21,7 +21,7 @@ class CustomerCard extends StatelessWidget {
         color: AppColors.whiteColor,
         boxShadow: [
           BoxShadow(
-              color: AppColors.shadowColor.withOpacity(0.05),
+              color: AppColors.shadowColor.withOpacity(0.08),
               blurRadius: 5,
               offset: const Offset(0, 2),
               spreadRadius: 1)
