@@ -6,6 +6,14 @@ import 'package:get/get.dart';
 class ApiClient {
   final GetConnect _getConnect = GetConnect();
 
+  Future get({required String path}) async {
+    AppBaseComponent.instance.startLoading();
+    Logger.prints("${ApiConst.baseUrl}$path");
+    var response = await _getConnect.get("${ApiConst.baseUrl}$path");
+    AppBaseComponent.instance.stopLoading();
+    return response.body;
+  }
+
   Future post({required String path, Map? body}) async {
     AppBaseComponent.instance.startLoading();
     Logger.prints("${ApiConst.baseUrl}$path");

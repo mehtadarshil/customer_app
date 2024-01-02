@@ -10,12 +10,14 @@ class CommonAppbar extends AppBar {
       required BuildContext context,
       bool backDisable = false,
       VoidCallback? onClick,
+      List<Widget>? actions,
       bool hasLeadingIcon = true,
       Widget? child})
       : super(
             key: key,
             backgroundColor: AppColors.primaryDarkColor,
             elevation: 3,
+            actions: actions,
             shape: const RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(15))),
