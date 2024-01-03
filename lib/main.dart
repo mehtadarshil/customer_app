@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: RouteConst.loginPage,
+      initialRoute: RouteConst.homePage,
       initialBinding: InitialBindings(),
       getPages: Pages.pages,
       builder: (context, child) {

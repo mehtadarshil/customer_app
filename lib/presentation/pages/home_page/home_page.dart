@@ -14,7 +14,12 @@ class HomePage extends GetView<HomeController> {
         title: Strings.strHome,
         context: context,
       ),
-      body: ListView.builder(itemBuilder: (context, index) => controller.,),
+      body: Obx(
+        () => ListView.builder(
+          itemBuilder: (context, index) => Container(),
+          itemCount: controller.todoList.length,
+        ),
+      ),
     );
   }
 }
