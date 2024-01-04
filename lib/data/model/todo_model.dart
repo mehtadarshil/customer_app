@@ -61,6 +61,7 @@ class Datum {
   final String? latitude;
   final String? closingRemarks;
   final String? customerId;
+  final String? employeeName;
   final DateTime? actualDeliveryDate;
 
   Datum({
@@ -84,6 +85,7 @@ class Datum {
     this.latitude,
     this.closingRemarks,
     this.customerId,
+    this.employeeName,
     this.actualDeliveryDate,
   });
 
@@ -118,6 +120,7 @@ class Datum {
         longitude: json["Longitude"],
         latitude: json["Latitude"],
         closingRemarks: json["ClosingRemarks"],
+        employeeName: json["EmployeeName"],
         customerId: json["CustomerID"],
         actualDeliveryDate: json["ActualDeliveryDate"] == null
             ? null
@@ -144,6 +147,7 @@ class Datum {
         "Longitude": longitude,
         "Latitude": latitude,
         "ClosingRemarks": closingRemarks,
+        "EmployeeName": employeeName,
         "CustomerID": customerId,
         "ActualDeliveryDate": actualDeliveryDate?.toIso8601String(),
       };

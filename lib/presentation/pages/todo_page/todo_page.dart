@@ -4,6 +4,8 @@ import 'package:customer_app/presentation/pages/todo_page/controller/todo_contro
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'widgets/todo_card.dart';
+
 class TodoPage extends GetView<TodoController> {
   const TodoPage({super.key});
 
@@ -18,22 +20,11 @@ class TodoPage extends GetView<TodoController> {
           padding: const EdgeInsets.all(20),
           itemBuilder: (context, index) {
             var data = controller.todoList[index];
-            return Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
-                        blurRadius: 5,
-                        spreadRadius: 1)
-                  ]),
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text(data.taskDescription ?? "")],
-              ),
-            );
+            return GestureDetector(
+                onTap: () {
+                  Get.toNamed(RouteConst.addEditTodo, arguments: data);
+                },
+                child: TodoCard(data: data));
           },
           itemCount: controller.todoList.length,
           separatorBuilder: (BuildContext context, int index) {

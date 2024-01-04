@@ -9,14 +9,18 @@ class CommonTextfield extends StatelessWidget {
       this.obscureText = false,
       this.keyboardType,
       this.hintText,
+      this.maxLines = 1,
       this.prefix,
       this.onlyRead = false,
       this.onTap,
-      this.textInputAction});
+      this.textInputAction,
+      this.maxLength});
 
   final TextEditingController controller;
   final bool obscureText;
   final String? hintText;
+  final int maxLines;
+  final int? maxLength;
   final TextInputType? keyboardType;
   final Widget? prefix;
   final bool onlyRead;
@@ -26,12 +30,13 @@ class CommonTextfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      maxLines: 1,
+      maxLines: maxLines,
       onTap: onTap,
       readOnly: onlyRead,
       controller: controller,
       obscureText: obscureText,
       keyboardType: keyboardType,
+      maxLength: maxLength,
       textInputAction: textInputAction,
       cursorColor: AppColors.primaryDarkColor,
       style: TextStyle(
