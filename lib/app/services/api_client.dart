@@ -10,15 +10,17 @@ class ApiClient {
     AppBaseComponent.instance.startLoading();
     Logger.prints("${ApiConst.baseUrl}$path");
     var response = await _getConnect.get("${ApiConst.baseUrl}$path");
+    Logger.prints(response.body);
     AppBaseComponent.instance.stopLoading();
-    return response.body;
+    return response.statusCode == 200 ? response.body : null;
   }
 
   Future post({required String path, Map? body}) async {
     AppBaseComponent.instance.startLoading();
     Logger.prints("${ApiConst.baseUrl}$path");
     var response = await _getConnect.post("${ApiConst.baseUrl}$path", body);
+    Logger.prints(response.body);
     AppBaseComponent.instance.stopLoading();
-    return response.body;
+    return response.statusCode == 200 ? response.body : null;
   }
 }
