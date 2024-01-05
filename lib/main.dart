@@ -17,7 +17,7 @@ import 'gen/fonts.gen.dart';
 void main() async {
   FlutterError.onError = (details) {
     SnackBarUtil.showSnackBar(message: Strings.strSomethingWentWrong);
-    AppBaseComponent.instance.startLoading();
+    AppBaseComponent.instance.stopLoading();
   };
   await GetStorage.init();
   SystemChrome.setPreferredOrientations(

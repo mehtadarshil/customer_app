@@ -22,4 +22,12 @@ class Strings {
   static const strSelectPriority = "Select Priority";
   static const strLocation = "Location";
   static const strAssignTo = "Assign To";
+  static const strStartDate = "Start Date";
+  static const strDueDate = "Due Date";
+  static const strPleaseEnterTaskDescription = "Please enter task description";
+  static const strPleaseSelectCategory = "Please select category";
+  static const strPleaseSelectPriority = "Please select priority";
+  static const strPleaseSelectEmployee = "Please select employee";
+  static const strPleaseSelectStartDate = "Please select start date";
+  static const strPleaseSelectDueDate = "Please select due date";
 }
