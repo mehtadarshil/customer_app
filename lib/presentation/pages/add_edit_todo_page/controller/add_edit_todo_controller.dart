@@ -24,11 +24,15 @@ class AddEditTodoController extends GetxController {
   final TextEditingController taskDescriptionController =
       TextEditingController();
   final TextEditingController startDateController = TextEditingController();
+  DateTime? startDate;
+  DateTime? dueDate;
   final TextEditingController locationController = TextEditingController();
   final TextEditingController dueDateController = TextEditingController();
   final RxString selectedCategoryId = "".obs;
   final RxString selectedPriority = "".obs;
   final RxString selectedEmployee = "".obs;
+  final RxSet<int> taggedEmployee = <int>{}.obs;
+  TextEditingController taggedEmployeeController = TextEditingController();
   List<String> priorityList = ["High", "Medium", "Low"];
 
   @override
@@ -61,6 +65,22 @@ class AddEditTodoController extends GetxController {
     super.onReady();
   }
 
+  @override
+  void onInit() {
+    if (args != null) {
+      taggedEmployeeController.text = args!.multiAssignEmp!.isEmpty
+          ? Strings.strPleaseSelectEmployee
+          : "${args!.multiAssignEmp!.length} selected";
+    } else {
+      taggedEmployee.listen((p0) {
+        taggedEmployeeController.text = p0.isEmpty
+            ? Strings.strPleaseSelectEmployee
+            : "${p0.length} selected";
+      });
+    }
+    super.onInit();
+  }
+
   Future getOptions() async {
     try {
       var tempData = await _apiClient.get(path: ApiConst.options);
@@ -78,7 +98,24 @@ class AddEditTodoController extends GetxController {
       var tempData =
           await _apiClient.post(path: ApiConst.create, body: data.toJson());
       if (tempData != null) {
-        Get.back();
+        Navigator.pop(Get.context!);
+        todoController.getTodoList();
+        SnackBarUtil.showSnackBar(
+            message: TodoCreateModel.fromJson(tempData).message ?? "");
+      }
+    } catch (e) {
+      AppBaseComponent.instance.stopLoading();
+      SnackBarUtil.showSnackBar(message: Strings.strSomethingWentWrong);
+    }
+  }
+
+  void deleteTask(int id) async {
+    try {
+      var tempData =
+          await _apiClient.post(path: ApiConst.delete, body: {"ID": id});
+
+      if (tempData != null) {
+        Navigator.pop(Get.context!);
         todoController.getTodoList();
         SnackBarUtil.showSnackBar(
             message: TodoCreateModel.fromJson(tempData).message ?? "");
@@ -95,7 +132,7 @@ class AddEditTodoController extends GetxController {
           await _apiClient.post(path: ApiConst.edit, body: data.toJson());
 
       if (tempData != null) {
-        Get.back();
+        Navigator.pop(Get.context!);
         todoController.getTodoList();
         SnackBarUtil.showSnackBar(
             message: TodoCreateModel.fromJson(tempData).message ?? "");

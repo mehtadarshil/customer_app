@@ -54,7 +54,7 @@ class ConfirmationSheet extends StatelessWidget {
                   child: CommonButton(
                       isLight: true,
                       onTap: () {
-                        Get.back();
+                        Get.close(1);
                       },
                       text: Strings.strNo)),
               const SizedBox(
@@ -63,7 +63,7 @@ class ConfirmationSheet extends StatelessWidget {
               Expanded(
                   child: CommonButton(
                       onTap: () {
-                        Get.back();
+                        Get.close(1);
                         onConfirm();
                       },
                       text: Strings.strYes))

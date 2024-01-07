@@ -18,8 +18,9 @@ class ApiClient {
   Future post({required String path, Map? body}) async {
     AppBaseComponent.instance.startLoading();
     Logger.prints("${ApiConst.baseUrl}$path");
+    Logger.prints("body $body");
     var response = await _getConnect.post("${ApiConst.baseUrl}$path", body);
-    Logger.prints(response.body);
+    Logger.prints("post response ${response.body}");
     AppBaseComponent.instance.stopLoading();
     return response.statusCode == 200 ? response.body : null;
   }

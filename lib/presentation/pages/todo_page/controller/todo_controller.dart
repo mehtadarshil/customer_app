@@ -16,7 +16,7 @@ class TodoController extends GetxController {
     super.onReady();
   }
 
-  void getTodoList() async {
+  Future getTodoList() async {
     try {
       var tempData = await _apiClient.get(path: ApiConst.tasks);
       if (tempData != null) {

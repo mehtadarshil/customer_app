@@ -62,6 +62,7 @@ class Datum {
   final String? closingRemarks;
   final String? customerId;
   final String? employeeName;
+  final List<String>? multiAssignEmp;
   final DateTime? actualDeliveryDate;
 
   Datum({
@@ -86,6 +87,7 @@ class Datum {
     this.closingRemarks,
     this.customerId,
     this.employeeName,
+    this.multiAssignEmp,
     this.actualDeliveryDate,
   });
 
@@ -122,6 +124,9 @@ class Datum {
         closingRemarks: json["ClosingRemarks"],
         employeeName: json["EmployeeName"],
         customerId: json["CustomerID"],
+        multiAssignEmp: json["MultiAssignEmp"] == null
+            ? []
+            : List<String>.from(json["MultiAssignEmp"]!.map((x) => x)),
         actualDeliveryDate: json["ActualDeliveryDate"] == null
             ? null
             : DateTime.parse(json["ActualDeliveryDate"]),
@@ -149,6 +154,9 @@ class Datum {
         "ClosingRemarks": closingRemarks,
         "EmployeeName": employeeName,
         "CustomerID": customerId,
+        "MultiAssignEmp": multiAssignEmp == null
+            ? []
+            : List<dynamic>.from(multiAssignEmp!.map((x) => x)),
         "ActualDeliveryDate": actualDeliveryDate?.toIso8601String(),
       };
 }

@@ -1,3 +1,4 @@
+import 'package:customer_app/app/config/appcolors.dart';
 import 'package:flutter/material.dart';
 
 class DialogUtil {
@@ -16,6 +17,23 @@ class DialogUtil {
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryDarkColor, // <-- SEE HERE
+              onSurface: AppColors.primaryDarkColor, // <-- SEE HERE
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    AppColors.primaryDarkColor, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
     );
 
     if (selectedDate == null) return null;
@@ -25,6 +43,20 @@ class DialogUtil {
     final TimeOfDay? selectedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(selectedDate),
+      builder: (context, child) => Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: AppColors.primaryDarkColor, // <-- SEE HERE
+              onSurface: AppColors.primaryDarkColor, // <-- SEE HERE
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor:
+                    AppColors.primaryDarkColor, // button text color
+              ),
+            ),
+          ),
+          child: child!),
     );
 
     return selectedTime == null

@@ -77,13 +77,13 @@ class Employee {
   });
 
   factory Employee.fromJson(Map<String, dynamic> json) => Employee(
-        screenFullName: json["ScreenFullName"],
-        employeeId: json["EmployeeID"],
+        screenFullName: json["EmployeeName"],
+        employeeId: json["pkID"],
       );
 
   Map<String, dynamic> toJson() => {
-        "ScreenFullName": screenFullName,
-        "EmployeeID": employeeId,
+        "EmployeeName": screenFullName,
+        "pkID": employeeId,
       };
 }
 

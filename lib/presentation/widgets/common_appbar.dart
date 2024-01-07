@@ -11,6 +11,7 @@ class CommonAppbar extends AppBar {
       bool backDisable = false,
       VoidCallback? onClick,
       List<Widget>? actions,
+      Widget? leading,
       bool hasLeadingIcon = true,
       Widget? child})
       : super(
@@ -37,7 +38,7 @@ class CommonAppbar extends AppBar {
                           Icons.arrow_back_ios_new_rounded,
                           color: AppColors.whiteColor,
                         ))
-                : null,
+                : leading,
             title: Text(
               title,
               style: const TextStyle(

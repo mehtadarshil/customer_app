@@ -1,8 +1,9 @@
 class Strings {
-  static const strAppName = "MMV App";
+  static const strAppName = "MMV Vadapav";
   static const strNo = "No";
   static const strYes = "Yes";
   static const strNoInternetAvailable = "No Internet Available";
+  static const strNoDataFound = "No data found";
   static const strLogin = "Login";
   static const strSave = "Save";
   static const strTodo = "Todo";
@@ -17,6 +18,10 @@ class Strings {
   static const strAssignToField = "Assign To : ";
   static const strStartDateField = "Start Date : ";
   static const strDueDateField = "Due Date : ";
+  static const strAuditDateField = "Audit Date : ";
+  static const strAreaField = "Area : ";
+  static const strCityField = "City : ";
+  static const strAuditedByField = "Audited By : ";
   static const strTaskDescription = "Task Description";
   static const strSelectCategory = "Select Category";
   static const strSelectPriority = "Select Priority";
@@ -30,4 +35,9 @@ class Strings {
   static const strPleaseSelectEmployee = "Please select employee";
   static const strPleaseSelectStartDate = "Please select start date";
   static const strPleaseSelectDueDate = "Please select due date";
+  static const strAllEmployeeStackholder = "All Employee Stackholder";
+  static const strSelectEmployee = "Select Employee";
+  static const strAreYouSureYouWantToDeleteThisTodo =
+      "Are you sure you want to delete this Task";
+  static const strAuditDetail = "Audit Detail";
 }

@@ -15,23 +15,29 @@ class TodoPage extends GetView<TodoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => ListView.separated(
-          padding: const EdgeInsets.all(20),
-          itemBuilder: (context, index) {
-            var data = controller.todoList[index];
-            return GestureDetector(
-                onTap: () {
-                  Get.toNamed(RouteConst.addEditTodo, arguments: data);
-                },
-                child: TodoCard(data: data));
-          },
-          itemCount: controller.todoList.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return const SizedBox(
-              height: 10,
-            );
-          },
+      body: RefreshIndicator(
+        onRefresh: () {
+          return controller.getTodoList();
+        },
+        color: AppColors.primaryDarkColor,
+        child: Obx(
+          () => ListView.separated(
+            padding: const EdgeInsets.all(20),
+            itemBuilder: (context, index) {
+              var data = controller.todoList[index];
+              return GestureDetector(
+                  onTap: () {
+                    Get.toNamed(RouteConst.addEditTodo, arguments: data);
+                  },
+                  child: TodoCard(data: data));
+            },
+            itemCount: controller.todoList.length,
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 10,
+              );
+            },
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
