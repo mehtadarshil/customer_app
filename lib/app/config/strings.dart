@@ -40,4 +40,6 @@ class Strings {
   static const strAreYouSureYouWantToDeleteThisTodo =
       "Are you sure you want to delete this Task";
   static const strAuditDetail = "Audit Detail";
+  static const score = "Score";
+  static const strReamrk = "Remark";
 }

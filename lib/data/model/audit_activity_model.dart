@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 AuditActivityModel auditActivityModelFromJson(String str) =>
@@ -198,18 +199,23 @@ class Section {
   final String? displayOrder;
   final String? baseRating;
   final String? description;
+  final String? checkListID;
   RxBool? selected;
+  RxInt? score;
+  TextEditingController? remarkController;
 
-  Section({
-    this.pkId,
-    this.inquiryStatus,
-    this.statusCategory,
-    this.campaignId,
-    this.displayOrder,
-    this.baseRating,
-    this.description,
-    this.selected,
-  });
+  Section(
+      {this.pkId,
+      this.inquiryStatus,
+      this.statusCategory,
+      this.campaignId,
+      this.displayOrder,
+      this.baseRating,
+      this.description,
+      this.checkListID,
+      this.selected,
+      this.score,
+      this.remarkController});
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
       pkId: json["pkID"],
@@ -219,7 +225,10 @@ class Section {
       displayOrder: json["DisplayOrder"],
       baseRating: json["BaseRating"],
       description: json["Description"],
-      selected: false.obs);
+      checkListID: json["checkListID"],
+      selected: false.obs,
+      score: 0.obs,
+      remarkController: TextEditingController());
 
   Map<String, dynamic> toJson() => {
         "pkID": pkId,
@@ -229,5 +238,6 @@ class Section {
         "DisplayOrder": displayOrder,
         "BaseRating": baseRating,
         "Description": description,
+        "checkListID": checkListID
       };
 }

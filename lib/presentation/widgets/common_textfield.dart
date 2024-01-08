@@ -13,6 +13,7 @@ class CommonTextfield extends StatelessWidget {
       this.prefix,
       this.onlyRead = false,
       this.onTap,
+      this.isDense = false,
       this.textInputAction,
       this.maxLength});
 
@@ -24,6 +25,7 @@ class CommonTextfield extends StatelessWidget {
   final TextInputType? keyboardType;
   final Widget? prefix;
   final bool onlyRead;
+  final bool isDense;
   final VoidCallback? onTap;
   final TextInputAction? textInputAction;
 
@@ -41,22 +43,24 @@ class CommonTextfield extends StatelessWidget {
       cursorColor: AppColors.primaryDarkColor,
       style: TextStyle(
           fontFamily: FontFamily.interMedium,
-          fontSize: 18,
+          fontSize: isDense ? 15 : 18,
           color: AppColors.textfieldTitleColor),
       decoration: InputDecoration(
         prefixIcon: prefix,
         hintText: hintText,
+        contentPadding:
+            isDense ? const EdgeInsets.symmetric(horizontal: 10) : null,
         hintStyle: TextStyle(
             fontFamily: FontFamily.interMedium,
-            fontSize: 18,
+            fontSize: isDense ? 15 : 18,
             color: AppColors.textfieldBorderColor),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(isDense ? 10 : 16),
           borderSide:
               BorderSide(color: AppColors.textfieldBorderColor, width: 1.5),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(isDense ? 10 : 16),
           borderSide:
               BorderSide(color: AppColors.textfieldBorderColor, width: 1.5),
         ),

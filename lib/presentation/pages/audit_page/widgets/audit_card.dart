@@ -30,15 +30,31 @@ class AuditCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            data.customerName ?? "",
-            style: const TextStyle(
-                fontFamily: FontFamily.interSemiBold, fontSize: 16),
-          ),
-          Text(
-            data.contactNo1 ?? "",
-            style: const TextStyle(
-                fontFamily: FontFamily.interRegular, fontSize: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    data.customerName ?? "",
+                    style: const TextStyle(
+                        fontFamily: FontFamily.interSemiBold, fontSize: 16),
+                  ),
+                  Text(
+                    data.contactNo1 ?? "",
+                    style: const TextStyle(
+                        fontFamily: FontFamily.interRegular, fontSize: 12),
+                  )
+                ],
+              )),
+              Text(
+                data.baseRating ?? "",
+                style: const TextStyle(
+                    fontFamily: FontFamily.interMedium, fontSize: 15),
+              )
+            ],
           ).paddingOnly(top: 2),
           Divider(
             color: AppColors.primaryDarkColor,

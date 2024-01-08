@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 class CommonDropdown extends StatelessWidget {
   const CommonDropdown(
       {super.key,
+      this.isDense,
       required this.hintText,
       this.items,
       this.onChanged,
@@ -16,21 +17,26 @@ class CommonDropdown extends StatelessWidget {
   final List<DropdownMenuItem<Object?>>? items;
   final Function(Object? newValue)? onChanged;
   final Object? value;
+  final bool? isDense;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 6, bottom: 6, right: 5),
+      padding: EdgeInsets.only(
+          top: (isDense ?? false) ? 2 : 6,
+          bottom: (isDense ?? false) ? 2 : 6,
+          right: 5),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular((isDense ?? false) ? 10 : 16),
           border:
               Border.all(width: 1.5, color: AppColors.textfieldBorderColor)),
       child: DropdownButton2(
         items: items,
         value: value,
+        isDense: isDense ?? false,
         style: TextStyle(
             fontFamily: FontFamily.interMedium,
-            fontSize: 18,
+            fontSize: (isDense ?? false) ? 15 : 18,
             color: AppColors.textfieldTitleColor),
         isExpanded: true,
         onChanged: (value) {
@@ -46,7 +52,7 @@ class CommonDropdown extends StatelessWidget {
           hintText,
           style: TextStyle(
               fontFamily: FontFamily.interMedium,
-              fontSize: 18,
+              fontSize: (isDense ?? false) ? 15 : 18,
               color: AppColors.textfieldBorderColor),
         ),
       ),

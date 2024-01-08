@@ -194,6 +194,9 @@ class AddEditTodoPage extends GetView<AddEditTodoController> {
                                     var data = finalData.elementAt(index);
                                     return Obx(
                                       () => CheckboxListTile(
+                                        checkboxShape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
                                         activeColor: AppColors.primaryDarkColor,
                                         value: controller.taggedEmployee
                                             .contains(

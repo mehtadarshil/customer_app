@@ -1,8 +1,12 @@
 import 'package:customer_app/app/config/appcolors.dart';
 import 'package:customer_app/app/config/strings.dart';
+import 'package:customer_app/data/entity/audit_edit_entity.dart';
 import 'package:customer_app/gen/fonts.gen.dart';
 import 'package:customer_app/presentation/pages/audit_detail_page/controller/audit_detail_controller.dart';
+import 'package:customer_app/presentation/widgets/common-dropdown.dart';
 import 'package:customer_app/presentation/widgets/common_appbar.dart';
+import 'package:customer_app/presentation/widgets/common_button.dart';
+import 'package:customer_app/presentation/widgets/common_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -47,10 +51,49 @@ class AuditDetailPage extends GetView<AuditDetailController> {
                 Row(
                   children: [
                     Obx(() => Checkbox(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5)),
                           value: data.selected!.value,
+                          activeColor: AppColors.primaryDarkColor,
                           onChanged: (value) {
                             data.selected!.value = value!;
                           },
+                        )),
+                    Expanded(
+                        flex: 40,
+                        child: Obx(
+                          () => CommonDropdown(
+                            hintText: Strings.score,
+                            items: List.generate(
+                                    int.parse(data.baseRating!) + 1,
+                                    (index) => index)
+                                .map((e) => DropdownMenuItem(
+                                    value: e, child: Text(e.toString())))
+                                .toList(),
+                            isDense: true,
+                            onChanged: (newValue) {
+                              data.score!.value = newValue as int;
+                            },
+                            value: data.score!.value,
+                          ),
+                        )),
+                    Text(
+                      " / ${data.baseRating}",
+                      style: const TextStyle(
+                          fontFamily: FontFamily.interRegular, fontSize: 16),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                        flex: 70,
+                        child: SizedBox(
+                          height: 30,
+                          child: CommonTextfield(
+                            controller: data.remarkController!,
+                            isDense: true,
+                            hintText: Strings.strReamrk,
+                          ),
                         ))
                   ],
                 )
@@ -65,6 +108,26 @@ class AuditDetailPage extends GetView<AuditDetailController> {
           );
         },
       ),
+      bottomNavigationBar: CommonButton(
+              onTap: () {
+                List<CheckList> finalChecklist = [];
+                for (var element in controller.sections!) {
+                  finalChecklist.add(CheckList(
+                    checkListId: int.parse(element.checkListID!),
+                    auditStatus: element.selected!.value ? 1 : 0,
+                    remark: element.remarkController!.text,
+                    scoreRating: element.score!.value,
+                  ));
+                }
+                controller.editAudit(
+                  AuditEditEntity(
+                      parentId: int.tryParse(
+                          controller.auditWithCustomer?.pkId ?? ""),
+                      checkList: finalChecklist),
+                );
+              },
+              text: Strings.strSave)
+          .paddingSymmetric(horizontal: 22, vertical: 10),
     );
   }
 }
