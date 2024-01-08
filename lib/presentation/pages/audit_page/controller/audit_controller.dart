@@ -10,7 +10,6 @@ class AuditController extends GetxController {
   final ApiClient _apiClient = Get.find();
 
   RxList<AuditWithCustomer> auditActivityList = <AuditWithCustomer>[].obs;
-  List<Section> sections = [];
 
   @override
   void onReady() {
@@ -24,7 +23,6 @@ class AuditController extends GetxController {
       if (tempData != null) {
         auditActivityList.value =
             AuditActivityModel.fromJson(tempData).data?.auditWithCustomer ?? [];
-        sections = AuditActivityModel.fromJson(tempData).data?.section ?? [];
       }
     } catch (e) {
       AppBaseComponent.instance.stopLoading();

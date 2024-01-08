@@ -7,4 +7,5 @@ class ApiConst {
   static const delete = "delete";
   static const auditActivity = "audit-activity";
   static const editAuditActivity = "edit-audit-activity";
+  static const auditSection = "audit-section";
 }

@@ -29,7 +29,6 @@ class AuditPage extends GetView<AuditController> {
                     onTap: () {
                       Get.toNamed(RouteConst.auditDetail, arguments: {
                         "auditWithCustomer": data,
-                        "sections": controller.sections
                       });
                     },
                     child: AuditCard(data: data));

@@ -4,9 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
 AuditActivityModel auditActivityModelFromJson(String str) =>
     AuditActivityModel.fromJson(json.decode(str));
 
@@ -44,11 +41,9 @@ class AuditActivityModel {
 
 class Data {
   final List<AuditWithCustomer>? auditWithCustomer;
-  final List<Section>? section;
 
   Data({
     this.auditWithCustomer,
-    this.section,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -56,19 +51,12 @@ class Data {
             ? []
             : List<AuditWithCustomer>.from(json["auditWithCustomer"]!
                 .map((x) => AuditWithCustomer.fromJson(x))),
-        section: json["section"] == null
-            ? []
-            : List<Section>.from(
-                json["section"]!.map((x) => Section.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "auditWithCustomer": auditWithCustomer == null
             ? []
             : List<dynamic>.from(auditWithCustomer!.map((x) => x.toJson())),
-        "section": section == null
-            ? []
-            : List<dynamic>.from(section!.map((x) => x.toJson())),
       };
 }
 
@@ -98,6 +86,7 @@ class AuditWithCustomer {
   final String? area;
   final String? employeeName;
   final String? city;
+  final List<Score>? score;
 
   AuditWithCustomer({
     this.pkId,
@@ -125,6 +114,7 @@ class AuditWithCustomer {
     this.area,
     this.employeeName,
     this.city,
+    this.score,
   });
 
   factory AuditWithCustomer.fromJson(Map<String, dynamic> json) =>
@@ -160,6 +150,9 @@ class AuditWithCustomer {
         area: json["Area"],
         employeeName: json["EmployeeName"],
         city: json["city"],
+        score: json["score"] == null
+            ? []
+            : List<Score>.from(json["score"]!.map((x) => Score.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -188,56 +181,48 @@ class AuditWithCustomer {
         "Area": area,
         "EmployeeName": employeeName,
         "city": city,
+        "score": score == null
+            ? []
+            : List<dynamic>.from(score!.map((x) => x.toJson())),
       };
 }
 
-class Section {
+class Score {
   final String? pkId;
-  final String? inquiryStatus;
-  final String? statusCategory;
-  final dynamic campaignId;
-  final String? displayOrder;
+  final String? parentId;
+  final String? checkListId;
+  final bool? auditStatus;
   final String? baseRating;
-  final String? description;
-  final String? checkListID;
-  RxBool? selected;
-  RxInt? score;
-  TextEditingController? remarkController;
+  final String? scoreRating;
+  final String? remarks;
 
-  Section(
-      {this.pkId,
-      this.inquiryStatus,
-      this.statusCategory,
-      this.campaignId,
-      this.displayOrder,
-      this.baseRating,
-      this.description,
-      this.checkListID,
-      this.selected,
-      this.score,
-      this.remarkController});
+  Score({
+    this.pkId,
+    this.parentId,
+    this.checkListId,
+    this.auditStatus,
+    this.baseRating,
+    this.scoreRating,
+    this.remarks,
+  });
 
-  factory Section.fromJson(Map<String, dynamic> json) => Section(
-      pkId: json["pkID"],
-      inquiryStatus: json["InquiryStatus"],
-      statusCategory: json["StatusCategory"],
-      campaignId: json["CampaignID"],
-      displayOrder: json["DisplayOrder"],
-      baseRating: json["BaseRating"],
-      description: json["Description"],
-      checkListID: json["checkListID"],
-      selected: false.obs,
-      score: 0.obs,
-      remarkController: TextEditingController());
+  factory Score.fromJson(Map<String, dynamic> json) => Score(
+        pkId: json["pkID"],
+        parentId: json["ParentID"],
+        checkListId: json["CheckListID"],
+        auditStatus: json["AuditStatus"],
+        baseRating: json["BaseRating"],
+        scoreRating: json["ScoreRating"],
+        remarks: json["Remarks"],
+      );
 
   Map<String, dynamic> toJson() => {
         "pkID": pkId,
-        "InquiryStatus": inquiryStatus,
-        "StatusCategory": statusCategory,
-        "CampaignID": campaignId,
-        "DisplayOrder": displayOrder,
+        "ParentID": parentId,
+        "CheckListID": checkListId,
+        "AuditStatus": auditStatus,
         "BaseRating": baseRating,
-        "Description": description,
-        "checkListID": checkListID
+        "ScoreRating": scoreRating,
+        "Remarks": remarks,
       };
 }
