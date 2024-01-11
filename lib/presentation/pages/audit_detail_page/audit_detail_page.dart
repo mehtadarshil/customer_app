@@ -119,26 +119,39 @@ class AuditDetailPage extends GetView<AuditDetailController> {
           },
         ),
       ),
-      bottomNavigationBar: CommonButton(
-              onTap: () {
-                List<CheckList> finalChecklist = [];
-                for (var element in controller.sections) {
-                  finalChecklist.add(CheckList(
-                    checkListId: int.parse(element.checkListId!),
-                    auditStatus: element.selected!.value ? 1 : 0,
-                    remark: element.remarkController!.text,
-                    scoreRating: element.score!.value,
-                  ));
-                }
-                controller.editAudit(
-                  AuditEditEntity(
-                      parentId: int.tryParse(
-                          controller.auditWithCustomer?.pkId ?? ""),
-                      checkList: finalChecklist),
-                );
-              },
-              text: Strings.strSave)
-          .paddingSymmetric(horizontal: 22, vertical: 10),
+      bottomNavigationBar: Row(
+        children: [
+          Expanded(
+              child: CommonButton(
+                  onTap: () {
+                    controller.pickFiles();
+                  },
+                  isLight: true,
+                  text: "Add Files")),
+          Expanded(
+            child: CommonButton(
+                    onTap: () {
+                      List<CheckList> finalChecklist = [];
+                      for (var element in controller.sections) {
+                        finalChecklist.add(CheckList(
+                          checkListId: int.parse(element.checkListId!),
+                          auditStatus: element.selected!.value ? 1 : 0,
+                          remark: element.remarkController!.text,
+                          scoreRating: element.score!.value,
+                        ));
+                      }
+                      controller.editAudit(
+                        AuditEditEntity(
+                            parentId: int.tryParse(
+                                controller.auditWithCustomer?.pkId ?? ""),
+                            checkList: finalChecklist),
+                      );
+                    },
+                    text: Strings.strSave)
+                .paddingSymmetric(horizontal: 22, vertical: 10),
+          ),
+        ],
+      ),
     );
   }
 }

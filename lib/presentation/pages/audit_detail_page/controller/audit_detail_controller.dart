@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:customer_app/app/config/api_const.dart';
 import 'package:customer_app/app/config/strings.dart';
 import 'package:customer_app/app/services/api_client.dart';
@@ -8,8 +10,10 @@ import 'package:customer_app/data/model/audit_activity_model.dart';
 import 'package:customer_app/data/model/audit_section_model.dart';
 import 'package:customer_app/data/model/options_model.dart';
 import 'package:customer_app/presentation/pages/audit_page/controller/audit_controller.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class AuditDetailController extends GetxController {
   final AuditWithCustomer? auditWithCustomer =
@@ -19,12 +23,29 @@ class AuditDetailController extends GetxController {
   final ApiClient _apiClient = Get.find();
   final AuditController _auditController = Get.find();
 
+  RxList<PlatformFile> pickedFiles = <PlatformFile>[].obs;
+
   @override
   void onReady() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       getSections();
     });
     super.onReady();
+  }
+
+  void pickFiles() async {
+    var data = await FilePicker.platform.pickFiles();
+    if (data != null) {
+      // pickedFiles.addAll(data.files);
+      var request =
+          http.MultipartRequest("POST", Uri.parse("${ApiConst.baseUrl}upload"));
+      request.files.add(http.MultipartFile.fromBytes(
+          "file", await File(data.files.first.path!).readAsBytes(),
+          filename: data.files.first.name));
+      request.send().then((response) {
+        print("Uploaded! ${response.statusCode}");
+      });
+    }
   }
 
   void getSections() async {

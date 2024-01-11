@@ -67,7 +67,7 @@ class AuditWithCustomer {
   final String? employeeId;
   final String? baseRating;
   final String? scoreRating;
-  final int? auditScore;
+  final num? auditScore;
   final dynamic timeIn;
   final dynamic timeOut;
   final dynamic latitudeIn;
