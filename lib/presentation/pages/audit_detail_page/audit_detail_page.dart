@@ -16,7 +16,10 @@ class AuditDetailPage extends GetView<AuditDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppbar(title: Strings.strAuditDetail, context: context),
+      appBar: CommonAppbar(
+          title: controller.auditWithCustomer?.customerName ??
+              Strings.strAuditDetail,
+          context: context),
       body: Obx(
         () => ListView.separated(
           itemCount: controller.sections.length,
@@ -68,8 +71,14 @@ class AuditDetailPage extends GetView<AuditDetailController> {
                               items: List.generate(
                                       int.parse(data.baseRating!) + 1,
                                       (index) => index)
-                                  .map((e) => DropdownMenuItem(
-                                      value: e, child: Text(e.toString())))
+                                  .map(
+                                    (e) => DropdownMenuItem(
+                                      value: e,
+                                      child: Text(
+                                        e.toString(),
+                                      ),
+                                    ),
+                                  )
                                   .toList(),
                               isDense: true,
                               onChanged: (newValue) {
