@@ -3,6 +3,7 @@ import 'package:customer_app/app/config/strings.dart';
 import 'package:customer_app/data/entity/audit_edit_entity.dart';
 import 'package:customer_app/gen/fonts.gen.dart';
 import 'package:customer_app/presentation/pages/audit_detail_page/controller/audit_detail_controller.dart';
+import 'package:customer_app/presentation/pages/audit_detail_page/files_bottom_sheet.dart';
 import 'package:customer_app/presentation/widgets/common-dropdown.dart';
 import 'package:customer_app/presentation/widgets/common_appbar.dart';
 import 'package:customer_app/presentation/widgets/common_button.dart';
@@ -123,11 +124,13 @@ class AuditDetailPage extends GetView<AuditDetailController> {
         children: [
           Expanded(
               child: CommonButton(
-                  onTap: () {
-                    controller.pickFiles();
-                  },
-                  isLight: true,
-                  text: "Add Files")),
+                      onTap: () {
+                        FilesBottomSheet.showFilesBottomSheet(
+                            auditDetailController: controller);
+                      },
+                      isLight: true,
+                      text: "Add Files")
+                  .paddingOnly(top: 10, bottom: 10, left: 22)),
           Expanded(
             child: CommonButton(
                     onTap: () {

@@ -4,6 +4,7 @@ import 'package:customer_app/app/config/api_const.dart';
 import 'package:customer_app/app/config/strings.dart';
 import 'package:customer_app/app/services/api_client.dart';
 import 'package:customer_app/app/services/app_base_component.dart';
+import 'package:customer_app/app/services/logger.dart';
 import 'package:customer_app/app/services/snackbar_util.dart';
 import 'package:customer_app/data/entity/audit_edit_entity.dart';
 import 'package:customer_app/data/model/audit_activity_model.dart';
@@ -24,7 +25,14 @@ class AuditDetailController extends GetxController {
   final ApiClient _apiClient = Get.find();
   final AuditController _auditController = Get.find();
 
+  RxList<FileList> uploadedFiles = <FileList>[].obs;
   RxList<PlatformFile> pickedFiles = <PlatformFile>[].obs;
+
+  @override
+  void onInit() {
+    uploadedFiles.value = auditWithCustomer?.fileList ?? [];
+    super.onInit();
+  }
 
   @override
   void onReady() {
@@ -35,24 +43,37 @@ class AuditDetailController extends GetxController {
   }
 
   void pickFiles() async {
-    var data = await FilePicker.platform.pickFiles();
+    var data = await FilePicker.platform.pickFiles(allowMultiple: true);
     if (data != null) {
-      // pickedFiles.addAll(data.files);
-      var request =
-          http.MultipartRequest("POST", Uri.parse("${ApiConst.baseUrl}upload"));
-      request.files.add(http.MultipartFile.fromBytes(
-          "file", await File(data.files.first.path!).readAsBytes(),
-          filename: data.files.first.name));
-      request.fields.addAll({
-        "CreatedDate":
-            DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now()),
-        "KeyValue": (auditWithCustomer?.pkId ?? "")
-      });
-      print(request.fields);
-      request.send().then((response) async {
-        var body = await http.Response.fromStream(response);
-        print("Uploaded! ${body.body}");
-      });
+      pickedFiles.addAll(data.files);
+      uploadedFiles.addAll(data.files.map((e) => FileList(
+          docName: e.name,
+          keyValue: auditWithCustomer?.pkId,
+          moduleName: e.hashCode.toString())));
+    }
+  }
+
+  Future uploadFiles() async {
+    if (pickedFiles.isNotEmpty) {
+      for (var file in pickedFiles) {
+        var request = http.MultipartRequest(
+            "POST", Uri.parse("${ApiConst.baseUrl}upload"));
+        request.files.add(http.MultipartFile.fromBytes(
+            "file", await File(file.path!).readAsBytes(),
+            filename: file.name));
+        request.fields.addAll({
+          "CreatedDate":
+              DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now()),
+          "KeyValue": (auditWithCustomer?.pkId ?? "")
+        });
+        request.send().then((response) async {
+          var body = await http.Response.fromStream(response);
+          Logger.prints(body.body);
+          if (body.statusCode == 200) {
+            Logger.prints("uploaded success");
+          }
+        });
+      }
     }
   }
 
@@ -84,6 +105,7 @@ class AuditDetailController extends GetxController {
 
   void editAudit(AuditEditEntity data) async {
     try {
+      await uploadFiles();
       var tempData = await _apiClient.post(
           path: ApiConst.editAuditActivity, body: data.toJson());
       if (tempData != null) {

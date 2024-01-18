@@ -42,4 +42,7 @@ class Strings {
   static const strAuditDetail = "Audit Detail";
   static const score = "Score";
   static const strReamrk = "Remark";
+  static const strUploadedFiles = "Uploaded Files";
+  static const strAdd = "Add";
+  static const strUploadPending = "Upload Pending";
 }
