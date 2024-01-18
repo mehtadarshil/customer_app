@@ -103,6 +103,22 @@ class AuditDetailController extends GetxController {
     }
   }
 
+  void deleteFile({required String fileName, required String id}) async {
+    try {
+      var tempData =
+          await _apiClient.delete(path: "${ApiConst.deleteFile}/$fileName");
+      if (tempData != null) {
+        uploadedFiles.removeWhere((element) => element.moduleName == id);
+        pickedFiles.removeWhere((element) => element.name == fileName);
+        SnackBarUtil.showSnackBar(
+            message: OptionsModel.fromJson(tempData).message ?? "");
+      }
+    } catch (e) {
+      AppBaseComponent.instance.stopLoading();
+      SnackBarUtil.showSnackBar(message: Strings.strSomethingWentWrong);
+    }
+  }
+
   void editAudit(AuditEditEntity data) async {
     try {
       await uploadFiles();

@@ -24,4 +24,13 @@ class ApiClient {
     AppBaseComponent.instance.stopLoading();
     return response.statusCode == 200 ? response.body : null;
   }
+
+  Future delete({required String path}) async {
+    AppBaseComponent.instance.startLoading();
+    Logger.prints("${ApiConst.baseUrl}$path");
+    var response = await _getConnect.delete("${ApiConst.baseUrl}$path");
+    Logger.prints("post response ${response.body}");
+    AppBaseComponent.instance.stopLoading();
+    return response.statusCode == 200 ? response.body : null;
+  }
 }
