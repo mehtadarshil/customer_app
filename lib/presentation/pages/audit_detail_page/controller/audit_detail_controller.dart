@@ -14,6 +14,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 
 class AuditDetailController extends GetxController {
   final AuditWithCustomer? auditWithCustomer =
@@ -42,8 +43,15 @@ class AuditDetailController extends GetxController {
       request.files.add(http.MultipartFile.fromBytes(
           "file", await File(data.files.first.path!).readAsBytes(),
           filename: data.files.first.name));
-      request.send().then((response) {
-        print("Uploaded! ${response.statusCode}");
+      request.fields.addAll({
+        "CreatedDate":
+            DateFormat('yyyy-MM-dd HH:mm:ss.SSS').format(DateTime.now()),
+        "KeyValue": (auditWithCustomer?.pkId ?? "")
+      });
+      print(request.fields);
+      request.send().then((response) async {
+        var body = await http.Response.fromStream(response);
+        print("Uploaded! ${body.body}");
       });
     }
   }

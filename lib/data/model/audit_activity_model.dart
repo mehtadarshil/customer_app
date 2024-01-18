@@ -87,35 +87,36 @@ class AuditWithCustomer {
   final String? employeeName;
   final String? city;
   final List<Score>? score;
+  final List<FileList>? fileList;
 
-  AuditWithCustomer({
-    this.pkId,
-    this.auditDate,
-    this.customerId,
-    this.employeeId,
-    this.baseRating,
-    this.scoreRating,
-    this.auditScore,
-    this.timeIn,
-    this.timeOut,
-    this.latitudeIn,
-    this.longitudeIn,
-    this.latitudeOut,
-    this.longitudeOut,
-    this.locationAddressIn,
-    this.locationAddressOut,
-    this.createdBy,
-    this.createdDate,
-    this.updatedBy,
-    this.updatedDate,
-    this.auditStatus,
-    this.customerName,
-    this.contactNo1,
-    this.area,
-    this.employeeName,
-    this.city,
-    this.score,
-  });
+  AuditWithCustomer(
+      {this.pkId,
+      this.auditDate,
+      this.customerId,
+      this.employeeId,
+      this.baseRating,
+      this.scoreRating,
+      this.auditScore,
+      this.timeIn,
+      this.timeOut,
+      this.latitudeIn,
+      this.longitudeIn,
+      this.latitudeOut,
+      this.longitudeOut,
+      this.locationAddressIn,
+      this.locationAddressOut,
+      this.createdBy,
+      this.createdDate,
+      this.updatedBy,
+      this.updatedDate,
+      this.auditStatus,
+      this.customerName,
+      this.contactNo1,
+      this.area,
+      this.employeeName,
+      this.city,
+      this.score,
+      this.fileList});
 
   factory AuditWithCustomer.fromJson(Map<String, dynamic> json) =>
       AuditWithCustomer(
@@ -153,6 +154,10 @@ class AuditWithCustomer {
         score: json["score"] == null
             ? []
             : List<Score>.from(json["score"]!.map((x) => Score.fromJson(x))),
+        fileList: json["FileList"] == null
+            ? []
+            : List<FileList>.from(
+                json["FileList"]!.map((x) => FileList.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -184,6 +189,9 @@ class AuditWithCustomer {
         "score": score == null
             ? []
             : List<dynamic>.from(score!.map((x) => x.toJson())),
+        "FileList": fileList == null
+            ? []
+            : List<dynamic>.from(fileList!.map((x) => x.toJson())),
       };
 }
 
@@ -224,5 +232,33 @@ class Score {
         "BaseRating": baseRating,
         "ScoreRating": scoreRating,
         "Remarks": remarks,
+      };
+}
+
+class FileList {
+  final String? pkId;
+  final String? moduleName;
+  final String? keyValue;
+  final String? docName;
+
+  FileList({
+    this.pkId,
+    this.moduleName,
+    this.keyValue,
+    this.docName,
+  });
+
+  factory FileList.fromJson(Map<String, dynamic> json) => FileList(
+        pkId: json["pkID"],
+        moduleName: json["ModuleName"],
+        keyValue: json["KeyValue"],
+        docName: json["DocName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "pkID": pkId,
+        "ModuleName": moduleName,
+        "KeyValue": keyValue,
+        "DocName": docName,
       };
 }
